@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import IQKeyboardManagerSwift
 
 class LoginVC: UIViewController {
     
@@ -17,13 +18,23 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        IQKeyboardManager.shared.enable = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.shared.enable = false
+    }
+    
     @IBAction func signIn(_ sender: Any) {
         if tfEmail.text != "" && tfPassword.text != "" {
             Auth.auth().signIn(withEmail: tfEmail.text!, password: tfPassword.text!) { authData, error in
                 if error != nil {
                     self.makeAlert(title: "Error!", message: error?.localizedDescription ?? "Error!")
                 } else {
-                    self.showProfileVC()
+                    self.showMainPage()
                 }
             }
         } else {
@@ -44,9 +55,20 @@ class LoginVC: UIViewController {
     }
     
     private func showProfileVC() {
-        let profileVC = ProfileVC.loadFromNib()
-        profileVC.modalPresentationStyle = .fullScreen
-        present(profileVC, animated: true)
+//        let profileVC = ProfileVC.loadFromNib()
+//        profileVC.modalPresentationStyle = .fullScreen
+//        present(profileVC, animated: true)
+    }
+    
+    private func showMainPage() {
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+        let mainTabBar = UIStoryboard(
+            name: "MainTabBar",
+            bundle: nil
+        ).instantiateViewController(
+            withIdentifier: "MainTabBar"
+        )
+        sceneDelegate.setRoot(viewController: mainTabBar)
     }
     
     private func showRaceResultVC() {

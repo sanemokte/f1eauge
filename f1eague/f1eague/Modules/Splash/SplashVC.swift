@@ -6,41 +6,58 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SplashVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.showLoginVC()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.checkLogin()
         }
     }
+}
 
-    
-     // MARK: - Navigation
-    private func showLoginVC() {
-        let storyboard = UIStoryboard(name: "MainTabBar", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
-        present(storyboard, animated: true)
-//        let loginVC = LoginVC.loadFromNib()
-//        loginVC.modalPresentationStyle = .fullScreen
-//        present(loginVC, animated: true)
+extension SplashVC {
+    func checkLogin() {
+        if Auth.auth().currentUser == nil {
+            showLogin()
+        } else {
+            showMainPage()
+        }
     }
-
+    
+    private func showLogin() {
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+        let loginVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginVC")
+        sceneDelegate.setRoot(viewController: loginVC)
+    }
+    
+    private func showMainPage() {
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+        let mainTabBar = UIStoryboard(
+            name: "MainTabBar",
+            bundle: nil
+        ).instantiateViewController(
+            withIdentifier: "MainTabBar"
+        )
+        sceneDelegate.setRoot(viewController: mainTabBar)
+    }
 }
 
 extension UIViewController {
     static func loadFromNib() -> Self {
-         func instantiateFromNib<T: UIViewController>() -> T {
-              return T.init(nibName: String(describing: T.self), bundle: nil)
-         }
-         
-         return instantiateFromNib()
+        func instantiateFromNib<T: UIViewController>() -> T {
+            return T.init(nibName: String(describing: T.self), bundle: nil)
+        }
+        
+        return instantiateFromNib()
     }
 }

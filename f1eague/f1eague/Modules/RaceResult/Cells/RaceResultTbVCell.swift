@@ -8,36 +8,39 @@
 import UIKit
 
 class RaceResultTbVCell: UITableViewCell {
-
+    
+    // MARK: - Outlets
     @IBOutlet weak var lblFinishingPlace: UILabel!
-    @IBOutlet weak var imgConstructor: UIImageView!
     @IBOutlet weak var lblDriver: UILabel!
+    @IBOutlet weak var imgConstructor: UIImageView!
     @IBOutlet weak var lblConstructor: UILabel!
     
-    override func awakeFromNib() {
-         super.awakeFromNib()
-         
-//         initialize()
+    func setResults(with model: RaceResult) {
+        let driverName = model.driver?.givenName ?? ""
+        let driverSurname = model.driver?.familyName ?? ""
+        lblDriver.text = driverName + " " + driverSurname
+        
+        let finishingPlace = model.position ?? ""
+        lblFinishingPlace.text = finishingPlace
+        
+        let constructorName = model.constructor?.name ?? ""
+        lblConstructor.text = constructorName
+        
+        if let image = UIImage(named: "\(constructorName)") {
+            imgConstructor.image = image
+        } else {
+            imgConstructor.image = nil
+        }
+        
     }
     
-//    func setCell() {
-//
-//    }
-
-//    func initialize(logoUrl: String,
-//                    constructor: String,
-//                    driver: String,
-//                    grid: Int) {
-//        
-//        setCell()
-//    }
-
-}
-
-
-struct RaceResultModel {
-    var gridNo: Int?
-    var constructorLogoUrl: String?
-    var driverName: String?
-    var constructorName: String?
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        lblFinishingPlace.text = nil
+        lblDriver.text = nil
+        lblConstructor.text = nil
+        imgConstructor.image = nil
+    }
+    
 }

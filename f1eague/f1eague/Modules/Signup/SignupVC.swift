@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import IQKeyboardManagerSwift
 
 class SignupVC: UIViewController {
     
@@ -18,10 +19,17 @@ class SignupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        IQKeyboardManager.shared.enable = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.shared.enable = false
+    }
     
     @IBAction func signUp(_ sender: Any) {
         if tfEmail.text != "" && tfPassword.text != "" {
@@ -46,15 +54,15 @@ class SignupVC: UIViewController {
     }
     
     private func showProfileVC() {
-        let profileVC = ProfileVC.loadFromNib()
-        profileVC.modalPresentationStyle = .fullScreen
-        present(profileVC, animated: true)
+//        let profileVC = ProfileVC.loadFromNib()
+//        profileVC.modalPresentationStyle = .fullScreen
+//        present(profileVC, animated: true)
     }
     
     private func storeSignupData() {
         let firestoreDatabase = Firestore.firestore()
         var firestoreRef: DocumentReference?
-        let firestoreUser = ["email" : tfEmail.text ?? "", "nameSurname" : tfNameSurname.text ?? "", "username" : tfUsername.text ?? "", "photo" : "", "point" : 0] as [String : Any]
+        let firestoreUser = ["email" : tfEmail.text ?? "", "nameSurname" : tfNameSurname.text ?? "", "username" : tfUsername.text ?? "", "photo" : "", "point" : 0, "lastPrediction" : "", "lastPredictionRound" : ""] as [String : Any]
         firestoreRef = firestoreDatabase.collection("users").addDocument(data: firestoreUser, completion: { error in
             if error != nil {
                 self.makeAlert(title: "Error", message: error?.localizedDescription ?? "Error!")

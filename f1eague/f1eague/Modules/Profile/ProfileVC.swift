@@ -17,10 +17,16 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblPoints: UILabel!
+    @IBOutlet weak var nameView: UIView!
+    @IBOutlet weak var emailView: UIView!
+    @IBOutlet weak var usernameView: UIView!
+    @IBOutlet weak var pointsView: UIView!
+    
     var newImgURL: String?
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        initVC()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.getDataFromFirestore()
         })
@@ -56,7 +62,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
                             self.newImgURL = url?.absoluteString
                             
                             let firestoreDatabase = Firestore.firestore()
-                            firestoreDatabase.collection("users").whereField("email", isEqualTo: Auth.auth().currentUser!.email ?? "").addSnapshotListener { snapshot, error in
+                            firestoreDatabase.collection("users").whereField("email", isEqualTo: Auth.auth().currentUser!.email ?? "").getDocuments { snapshot, error in
                                 if error != nil {
                                     print("Error")
                                 } else {
@@ -79,8 +85,13 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
         chooseImage()
     }
     
+    @IBAction func signOutAction(_ sender: Any) {
+    }
+    
+    
+
     func getDataFromFirestore() {
-        
+
         let firestoreDatabase = Firestore.firestore()
         firestoreDatabase.collection("users").whereField("email", isEqualTo: Auth.auth().currentUser!.email ?? "").addSnapshotListener { snapshot, error in
             if error != nil {
@@ -108,7 +119,7 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
             }
         }
     }
-    
+
     func makeAlert (title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
@@ -116,4 +127,17 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
         self.present(alert, animated: true)
     }
 
+}
+// MARK: - Methods
+extension ProfileVC {
+    private func initVC() {
+        nameView.layer.borderColor = UIColor.white.cgColor
+        nameView.layer.borderWidth = 1
+        emailView.layer.borderColor = UIColor.white.cgColor
+        emailView.layer.borderWidth = 1
+        usernameView.layer.borderColor = UIColor.white.cgColor
+        usernameView.layer.borderWidth = 1
+        pointsView.layer.borderColor = UIColor.white.cgColor
+        pointsView.layer.borderWidth = 1
+    }
 }
