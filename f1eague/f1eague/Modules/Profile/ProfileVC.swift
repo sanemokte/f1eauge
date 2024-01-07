@@ -86,6 +86,15 @@ class ProfileVC: UIViewController, UIImagePickerControllerDelegate & UINavigatio
     }
     
     @IBAction func signOutAction(_ sender: Any) {
+        print("SO test")
+        do {
+            try Auth.auth().signOut()
+            guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+            let loginVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginVC")
+            sceneDelegate.setRoot(viewController: loginVC)
+        } catch {
+            print("Error")
+        }
     }
     
     

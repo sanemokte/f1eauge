@@ -13,8 +13,20 @@ class LoginVC: UIViewController {
     
     @IBOutlet weak var tfEmail: UITextField!
     @IBOutlet weak var tfPassword: UITextField!
+    @IBOutlet weak var btnSignUp: UIButton!
+    
     
     override func viewDidLoad() {
+        btnSignUp.layer.borderColor = UIColor.white.cgColor
+        btnSignUp.layer.borderWidth = 2
+        tfEmail.attributedPlaceholder = NSAttributedString(
+            string: "Email",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray3]
+        )
+        tfPassword.attributedPlaceholder = NSAttributedString(
+            string: "Password",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray3]
+        )
         super.viewDidLoad()
     }
     
@@ -43,8 +55,7 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func signUp(_ sender: Any) {
-//        showSignupVC()
-        showRaceResultVC()
+        showSignupVC()
     }
     
     func makeAlert (title: String, message: String) {
@@ -55,9 +66,9 @@ class LoginVC: UIViewController {
     }
     
     private func showProfileVC() {
-//        let profileVC = ProfileVC.loadFromNib()
-//        profileVC.modalPresentationStyle = .fullScreen
-//        present(profileVC, animated: true)
+        let profileVC = ProfileVC.loadFromNib()
+        profileVC.modalPresentationStyle = .fullScreen
+        present(profileVC, animated: true)
     }
     
     private func showMainPage() {

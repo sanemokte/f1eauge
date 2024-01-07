@@ -19,6 +19,23 @@ class SignupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tfEmail.attributedPlaceholder = NSAttributedString(
+            string: "Email",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray3]
+        )
+        tfPassword.attributedPlaceholder = NSAttributedString(
+            string: "Password",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray3]
+        )
+        tfUsername.attributedPlaceholder = NSAttributedString(
+            string: "Username",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray3]
+        )
+        tfNameSurname.attributedPlaceholder = NSAttributedString(
+            string: "Name & Surname",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray3]
+        )
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,10 +70,15 @@ class SignupVC: UIViewController {
         self.present(alert, animated: true)
     }
     
-    private func showProfileVC() {
-//        let profileVC = ProfileVC.loadFromNib()
-//        profileVC.modalPresentationStyle = .fullScreen
-//        present(profileVC, animated: true)
+    private func showMainPage() {
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+        let mainTabBar = UIStoryboard(
+            name: "MainTabBar",
+            bundle: nil
+        ).instantiateViewController(
+            withIdentifier: "MainTabBar"
+        )
+        sceneDelegate.setRoot(viewController: mainTabBar)
     }
     
     private func storeSignupData() {
@@ -67,7 +89,7 @@ class SignupVC: UIViewController {
             if error != nil {
                 self.makeAlert(title: "Error", message: error?.localizedDescription ?? "Error!")
             }else {
-                self.showProfileVC()
+                self.showMainPage()
             }
         })
     }
