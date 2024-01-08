@@ -21,6 +21,12 @@ class RaceScheduleTbVCell: UITableViewCell {
         
         lblRaceTitle.text = model.raceName ?? ""
         lblRacePlace.text = model.circuit?.circuitName ?? ""
+        
+        if let raceName = model.raceName {
+            let imageTrack = UIImage(named: "\(raceName)")
+            imgRace.image = imageTrack
+        }
+        
         guard let date = model.date,
               let time = model.time else {
             lblRaceDate.text = "No time information found."
@@ -50,6 +56,8 @@ class RaceScheduleTbVCell: UITableViewCell {
         super.prepareForReuse()
         
         lblRaceTitle.text = nil
+        lblRacePlace.text = nil
         lblRaceDate.text = nil
+        imgRace.image = nil
     }
 }
