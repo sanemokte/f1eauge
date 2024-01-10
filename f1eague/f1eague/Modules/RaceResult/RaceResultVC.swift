@@ -16,10 +16,8 @@ class RaceResultVC: UIViewController {
     var driverName: String?
     var constructorLogoUrl: String?
     var constructorName: String?
-//    var raceNames: [String] = ["Bahrain", "Saudi", "Australian", "Azerbaijan", "Miami"]
     let startYear = 1950
     var raceYears: [String] = []
-
     
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -178,7 +176,7 @@ extension RaceResultVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .empty:
             let cell = UITableViewCell()
-            cell.textLabel?.text = "BOŞ"
+            cell.textLabel?.text = "Empty"
             cell.backgroundColor = .yellow
             return cell
         }

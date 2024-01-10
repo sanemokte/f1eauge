@@ -90,7 +90,7 @@ class LoginVC: UIViewController {
     
     private func showSignupVC() {
         let signupVC = SignupVC.loadFromNib()
-        signupVC.modalPresentationStyle = .fullScreen
+        signupVC.modalPresentationStyle = .formSheet
         present(signupVC, animated: true)
     }
 }

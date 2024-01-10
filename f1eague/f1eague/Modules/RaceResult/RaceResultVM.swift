@@ -45,18 +45,8 @@ final class RaceResultVM: RaceResultVMProtocol {
     }
     
     var raceNames: [String] = []
-    
     var selectedRaceId: String = "1"
-//        didSet {
-//            fetchData(year: selectedRaceYear, raceId: selectedRaceId)
-//        }
-//    }
-    
     var selectedRaceYear: String = "2023"
-//        didSet {
-//            fetchData(year: selectedRaceYear, raceId: selectedRaceId)
-//        }
-//    }
 
     
     // MARK: - Protocol Methods
@@ -101,5 +91,4 @@ final class RaceResultVM: RaceResultVMProtocol {
             }
         }
     }
-    
 }

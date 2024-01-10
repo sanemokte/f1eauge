@@ -257,8 +257,8 @@
                             <constraint firstItem="yy5-6S-Lv7" firstAttribute="top" secondItem="H6E-X8-dsv" secondAttribute="bottom" constant="10" id="mkr-WT-xMC"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Race Results" selectedImage="flag.checkered.circle.fill" catalog="system" id="vGU-RT-h4v">
-                        <imageReference key="image" image="flag.checkered.circle" catalog="system"/>
+                    <tabBarItem key="tabBarItem" title="Race Results" selectedImage="flag.circle.fill" catalog="system" id="vGU-RT-h4v">
+                        <imageReference key="image" image="flag.circle" catalog="system"/>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -286,8 +286,8 @@
     <resources>
         <image name="Arrow - Down 4" width="24" height="24"/>
         <image name="checkerboard" width="386" height="62"/>
-        <image name="flag.checkered.circle" catalog="system" width="128" height="123"/>
-        <image name="flag.checkered.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="flag.circle" catalog="system" width="128" height="123"/>
+        <image name="flag.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
